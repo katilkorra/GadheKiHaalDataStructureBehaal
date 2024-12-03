@@ -1,0 +1,136 @@
+//(10).write program to implemnt priority queue
+#include<stdio.h>
+void main()
+{
+   void insert(int[],int[],int *,int *,int*,int *,int);
+   void deleteq(int[],int[],int *,int *,int*,int *);
+   void display(int[],int[],int *,int *);
+   int sq[10],rq[10];
+   int sf=-1,sr=-1,rf=-1,rr=-1;
+   int *sfront=&sf,*srear=&sr,*rfront=&rf,*rrear=&rr;
+   clrscr();
+
+   printf("\n1 insert");
+   printf("\n2 deleteq");
+   printf("\n3 Exit");
+   while(1)
+   {
+      int c;
+      printf("\nSelect The Choice:");
+      scanf("%d",&c);
+
+      switch(c)
+      {
+	 int age;
+	 case 1:printf("Enter Your Age:");
+		scanf("%d",&age);
+		insert(sq,rq,sfront,srear,rfront,rrear,age);
+		display(sq,rq,srear,rrear);
+		break;
+	 case 2:deleteq(sq,rq,sfront,srear,rfront,rrear);
+		display(sq,rq,srear,rrear);
+		break;
+	 case 3:exit(0);
+		break;
+      }
+   }
+}
+
+void insert(int sq[],int rq[],int *sfront,int *srear,int *rfront,int *rrear,int age)
+{
+   if(age>=60)
+   {
+      if(*srear==9)
+      {
+	 printf("Senear Que Full.!!\n");
+      }
+      else if(*sfront==-1 && *srear==-1)
+      {
+	 *sfront=*srear=0;
+	 sq[*srear]=age;
+      }
+      else
+      {
+	 *srear+=1;
+	 sq[*srear]=age;
+      }
+   }
+   else
+   {
+      if(*rrear==9)
+      {
+	 printf("Reguler Que Full.!!\n");
+      }
+      else if(*rfront==-1 && *rrear==-1)
+      {
+	 *rfront=*rrear=0;
+	 rq[*rrear]=age;
+      }
+      else
+      {
+	 *rrear+=1;
+	 rq[*rrear]=age;
+      }
+   }
+}
+
+void deleteq(int sq[],int rq[],int *sfront,int *srear,int *rfront,int *rrear)
+{
+   if(*sfront!=-1)
+   {
+      if(*sfront==*srear)
+      {
+	 *sfront=*srear=-1;
+      }
+      else
+      {
+	 sq[*sfront]=0;
+	 *sfront+=1;
+      }
+   }
+   else if(*rfront!=-1)
+   {
+      if(*rfront==*rrear)
+      {
+	 *rfront=*rrear=-1;
+      }
+      else
+      {
+	 rq[*rfront]=0;
+	 *rfront+=1;
+      }
+   }
+}
+
+void display(int sq[],int rq[],int *srear,int *rrear)
+{
+   printf("SQ:");
+   if(*srear==-1)
+   {
+      printf("Senear Que is Empty.!!\n");
+   }
+   else
+   {
+      int i;
+      for(i=0;i<=*srear;i++)
+      {
+	 printf("%d,",sq[i]);
+      }
+      printf("\n");
+   }
+
+   printf("RQ:");
+   if(*rrear==-1)
+   {
+      printf("Reguler Que is Empty.!!");
+   }
+   else
+   {
+      int j;
+      for(j=0;j<=*rrear;j++)
+      {
+	 printf("%d,",rq[j]);
+      }
+      printf("\n");
+   }
+}
